@@ -1,2 +1,2 @@
-# layered-architecture-php
+# Layered Architecture in PHP
 layered-architecture-php
