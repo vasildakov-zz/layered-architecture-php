@@ -44,15 +44,11 @@ final class Money implements MoneyInterface, \JsonSerializable
     /**
      * Compares this Money object to another.
      *
-     * Returns an integer less than, equal to, or greater than zero
-     * if the value of this Money object is considered to be respectively
-     * less than, equal to, or greater than the other Money object.
-     *
      * @param Money $other
      * @return integer -1|0|1
      * @throws Exception
      */
-    public function compareTo(Money $other)
+    public function compareTo(MoneyInterface $other)
     {
         $this->assertSameCurrency($this, $other);
         if ($this->amount == $other->getAmount()) {
@@ -62,20 +58,17 @@ final class Money implements MoneyInterface, \JsonSerializable
     }
 
 
-    public function equals(Money $other)
+    public function equals(MoneyInterface $other)
     {
         return $this->compareTo($other) == 0;
     }
 
 
     /**
-     * Returns a new Money object that represents the monetary value
-     * of the sum of this Money object and another.
-     *
-     * @param  \SebastianBergmann\Money\Money $other
+     * @param  MoneyInterface $other
      * @return static
      */
-    public function add(Money $other)
+    public function add(MoneyInterface $other)
     {
         $this->assertSameCurrency($this, $other);
 
@@ -88,13 +81,10 @@ final class Money implements MoneyInterface, \JsonSerializable
 
 
     /**
-     * Returns a new Money object that represents the monetary value
-     * of the difference of this Money object and another.
-     *
-     * @param  \SebastianBergmann\Money\Money $other
+     * @param  MoneyInterface $other
      * @return static
      */
-    public function subtract(Money $other)
+    public function subtract(MoneyInterface $other)
     {
         $this->assertSameCurrency($this, $other);
 
@@ -106,14 +96,14 @@ final class Money implements MoneyInterface, \JsonSerializable
     }
 
     /**
-     * @param  Money $a
-     * @param  Money $b
+     * @param  MoneyInterface $a
+     * @param  MoneyInterface $b
      * @throws Exception
      */
-    private function assertSameCurrency(Money $a, Money $b)
+    private function assertSameCurrency(MoneyInterface $a, MoneyInterface $b)
     {
         if ($a->getCurrency() != $b->getCurrency()) {
-            throw new Exception;
+            throw new \Exception;
         }
     }
 

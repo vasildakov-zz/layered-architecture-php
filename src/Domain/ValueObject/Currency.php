@@ -37,7 +37,7 @@ final class Currency implements CurrencyInterface, \JsonSerializable
 
     /**
      * @param  string $currencyCode
-     * @throws \SebastianBergmann\Money\InvalidArgumentException
+     * @throws InvalidArgumentException
      */
     public function __construct($currencyCode)
     {
@@ -45,11 +45,28 @@ final class Currency implements CurrencyInterface, \JsonSerializable
             $currencyCode = strtoupper($currencyCode);
         }
         if (!isset(self::$currencies[$currencyCode])) {
-            throw new InvalidArgumentException(
+            throw new \InvalidArgumentException(
                 sprintf('Unknown currency code "%s"', $currencyCode)
             );
         }
         $this->currencyCode = $currencyCode;
+    }
+
+    public function equals(CurrencyInterface $other)
+    {
+        
+    }
+
+
+    /**
+     * Specify data which should be serialized to JSON
+     *
+     * @return mixed data which can be serialized by <b>json_encode</b>,
+     * @link   http://php.net/manual/en/jsonserializable.jsonserialize.php
+     */
+    public function jsonSerialize()
+    {
+        return [];
     }
 
     /**
