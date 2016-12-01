@@ -4,12 +4,15 @@ declare(strict_types = 1);
 namespace Domain\ValueObject;
 
 /**
- * Class PasswordHash
+ * Class HashedPassword
  *
  * @author Vasil Dakov <vasildakov@gmail.com>
  */
-final class PasswordHash
+final class HashedPassword
 {
+    const REGEX_BCRYPT = '^\$2y\$.{56}$';
+
+    
     /**
      * @var string
      */

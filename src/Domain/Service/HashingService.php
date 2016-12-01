@@ -6,18 +6,20 @@
 namespace Domain\Service;
 
 use Domain\ValueObject\Password;
-use Domain\ValueObject\PasswordHash;
+use Domain\ValueObject\HashedPassword;
 
 /**
- * Interface PasswordHasher
+ * Interface HashingService
  *
  * @author Vasil Dakov <vasildakov@gmail.com>
  */
-interface PasswordHasher
+interface HashingService
 {
     /**
      * Returns hashed password
-     * @return string
+     *
+     * @param  Password $password
+     * @return HashedPassword
      */
-    public function __invoke(Password $password) : PasswordHash;
+    public function __invoke(Password $password) : HashedPassword;
 }
