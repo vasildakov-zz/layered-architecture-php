@@ -5,6 +5,9 @@
  */
 namespace Domain\Service;
 
+use Domain\ValueObject\Password;
+use Domain\ValueObject\PasswordHash;
+
 /**
  * Interface PasswordHasher
  *
@@ -16,5 +19,5 @@ interface PasswordHasher
      * Returns hashed password
      * @return string
      */
-    public function __invoke() : string;
+    public function __invoke(Password $password) : PasswordHash;
 }

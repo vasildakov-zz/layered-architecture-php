@@ -5,6 +5,7 @@ namespace Domain\Entity;
 
 use Domain\ValueObject\Uuid;
 use Domain\ValueObject\Email;
+use Domain\ValueObject\PasswordHash;
 
 /**
  * Class User
@@ -24,19 +25,27 @@ class User implements UserInterface
     private $email;
 
     /**
-     * @param \Domain\ValueObject\Uuid  $id
-     * @param \Domain\ValueObject\Email $email
+     * @var \Domain\ValueObject\PasswordHash  $password
      */
-    public function __construct(Uuid $id, Email $email)
+    private $password;
+
+
+    /**
+     * @param \Domain\ValueObject\Uuid            $id
+     * @param \Domain\ValueObject\Email           $email
+     * @param \Domain\ValueObject\PasswordHash    $password
+     */
+    public function __construct(Uuid $id, Email $email, PasswordHash $password)
     {
         $this->id = $id;
         $this->email = $email;
+        $this->password = $password;
     }
 
     /**
      * @return \Domain\ValueObject\Uuid  $id
      */
-    public function getId() : Uuid
+    public function getId(): Uuid
     {
         return $this->id;
     }
@@ -47,5 +56,23 @@ class User implements UserInterface
     public function getEmail(): Email
     {
         return $this->email;
+    }
+
+
+    /**
+     * @param \Domain\ValueObject\PasswordHash $password
+     */
+    public function setPassword(PasswordHash $password)
+    {
+        $this->password = $password;
+    }
+
+
+    /**
+     * @return \Domain\ValueObject\PasswordHash $password
+     */
+    public function getPassword(): PasswordHash
+    {
+        return $this->password;
     }
 }
