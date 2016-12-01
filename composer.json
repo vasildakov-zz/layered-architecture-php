@@ -21,6 +21,7 @@
         "phpunit/phpcov": "^3.1",
         "phpspec/phpspec": "^3.1",
         "henrikbjorn/phpspec-code-coverage": "^3.0",
+        "fzaninotto/faker": "^1.6",
         "filp/whoops": "^1.1 || ^2.0"
     },
     "autoload": {
