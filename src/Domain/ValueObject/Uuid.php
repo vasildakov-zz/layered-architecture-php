@@ -4,7 +4,9 @@ declare(strict_types = 1);
 namespace Domain\ValueObject;
 
 /**
- * Class Uuid
+ * Class Email
+ *
+ * @author Vasil Dakov <vasildakov@gmail.com>
  */
 class Uuid implements UuidInterface, \JsonSerializable
 {

@@ -3,6 +3,11 @@ declare(strict_types = 1);
 
 namespace Domain\ValueObject;
 
+/**
+ * Class Email
+ *
+ * @author Vasil Dakov <vasildakov@gmail.com>
+ */
 class Email implements EmailInterface, \JsonSerializable
 {
     /**
