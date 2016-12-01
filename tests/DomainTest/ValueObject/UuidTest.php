@@ -1,22 +1,37 @@
 <?php
 namespace DomainTest\ValueObject;
 
-use Faker\Provider\Uuid as UuidProvider;
 use Domain\ValueObject\Uuid;
 
 class UuidTest extends \PHPUnit_Framework_TestCase
 {
+    private $faker;
+
+    public function setUp()
+    {
+        $this->faker = \Faker\Factory::create();
+    }
+
     public function testObjectCanBeConstructedWithValidUuid1()
     {
-        $value = UuidProvider::uuid();
+        $value = $this->faker->unique()->uuid;
 
         self::assertInstanceOf(Uuid::class, new Uuid($value));
+    }
+
+    /**
+     * @expectedException InvalidArgumentException
+     * @expectedExceptionMessage "some-invalid-uuid-string" is not a valid uuid
+     */
+    public function testConstructorThrowsAnException()
+    {
+        $uuid = new Uuid('some-invalid-uuid-string');
     }
 
 
     public function testTwoObjectsAreEqual()
     {
-        $value = UuidProvider::uuid();
+        $value = $this->faker->unique()->uuid;
 
         $a = new Uuid($value);
         $b = new Uuid($value);
@@ -26,8 +41,8 @@ class UuidTest extends \PHPUnit_Framework_TestCase
 
     public function testTwoObjectsAreNotEqual()
     {
-        $value1 = UuidProvider::uuid();
-        $value2 = UuidProvider::uuid();
+        $value1 = $this->faker->unique()->uuid;
+        $value2 = $this->faker->unique()->uuid;
 
         $a = new Uuid($value1);
         $b = new Uuid($value2);

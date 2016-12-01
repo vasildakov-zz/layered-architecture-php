@@ -24,7 +24,7 @@ class Uuid implements UuidInterface, \JsonSerializable
     public function __construct($value)
     {
         if (!\preg_match(self::REGEX_UUID, $value)) {
-            throw new \InvalidArgumentException;
+            throw new \InvalidArgumentException(sprintf('"%s" is not a valid uuid', $value));
         }
 
         $this->value = $value;
