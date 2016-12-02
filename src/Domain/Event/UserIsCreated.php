@@ -4,11 +4,11 @@ namespace Domain\Event;
 use Domain\Entity\UserInterface;
 
 /**
- * Class UserCreated
+ * Class UserIsCreated
  *
  * @author Vasil Dakov <vasildakov@gmail.com>
  */
-class UserCreated implements EventInteface
+class UserIsCreated implements EventInteface
 {
     /**
      * @var \Domain\Entity\User
