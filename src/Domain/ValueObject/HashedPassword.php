@@ -8,7 +8,7 @@ namespace Domain\ValueObject;
  *
  * @author Vasil Dakov <vasildakov@gmail.com>
  */
-final class HashedPassword
+class HashedPassword
 {
     const REGEX_BCRYPT = '/^\$2y\$.{56}$/';
 
@@ -19,8 +19,9 @@ final class HashedPassword
 
     /**
      * @param string $value
+     * @throws Exception
      */
-    public function __construct(string $value)
+    public function __construct($value)
     {
         if(!\preg_match(self::REGEX_BCRYPT, $value, $matches)) {
             throw new \Exception("Invalid hash");

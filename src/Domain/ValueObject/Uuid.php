@@ -32,6 +32,11 @@ class Uuid implements UuidInterface, \JsonSerializable
         $this->value = $value;
     }
 
+    public function getValue()
+    {
+        return $this->value;
+    }
+
     public function equals(UuidInterface $other)
     {
         return strtolower((string) $this) === strtolower((string) $other);
@@ -44,6 +49,6 @@ class Uuid implements UuidInterface, \JsonSerializable
 
     public function __toString()
     {
-        return (string) $this->value;
+        return $this->getValue();
     }
 }
