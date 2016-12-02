@@ -1,5 +1,5 @@
 <?php
-namespace DomainTest\ValueObject;
+namespace InfrastructureTest\ValueObject;
 
 use Domain\ValueObject\Password;
 use Domain\ValueObject\HashedPassword;
