@@ -2,6 +2,7 @@
 namespace Domain\Repository;
 
 use Domain\Entity\User;
+use Domain\ValueObject\Uuid;
 
 /**
  * UserRepositoryInterface
@@ -11,13 +12,13 @@ use Domain\Entity\User;
 interface UserRepositoryInterface
 {
     /**
-     * @param  User   $user
+     * @param  \Domain\Entity\User   $user
      * @return void
      */
     public function save(User $user);
 
     /**
-     * @param  Uuid   $id
+     * @param  \Domain\ValueObject\Uuid   $id
      * @return User|null
      */
     public function find(Uuid $id);
