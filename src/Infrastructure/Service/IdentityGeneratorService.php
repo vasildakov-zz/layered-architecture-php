@@ -7,13 +7,14 @@ use Domain\Service\IdentityGenerator;
 use Domain\ValueObject\Uuid;
 
 /**
- * Generates pseudo-random UUID v4
+ * Generates pseudo-random universally unique identifier (UUID) v4
  *
  * @author Vasil Dakov <vasildakov@gmail.com>
  */
 class IdentityGeneratorService implements IdentityGenerator
 {
     /**
+     * @see http://www.ietf.org/rfc/rfc4122.txt  A Universally Unique IDentifier (UUID) URN Namespace
      * @return \Domain\ValueObject\Uuid
      */
     public function __invoke() : Uuid
