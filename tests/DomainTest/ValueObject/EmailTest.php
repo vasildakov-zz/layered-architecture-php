@@ -12,6 +12,9 @@ class EmailTest extends \PHPUnit_Framework_TestCase
         $this->faker = \Faker\Factory::create();
     }
 
+    /**
+     * @group domain
+     */
     public function testObjectCanBeConstructedWithValidUuid1()
     {
         $value = $this->faker->unique()->email;
@@ -26,10 +29,12 @@ class EmailTest extends \PHPUnit_Framework_TestCase
      */
     public function testConstructorThrowsAnException()
     {
-        $money = new Email('invalid');
+        $email = new Email('invalid');
     }
 
-
+    /**
+     * @group domain
+     */
     public function testTwoObjectsAreEqual()
     {
         $value = $this->faker->unique()->email;
@@ -40,6 +45,9 @@ class EmailTest extends \PHPUnit_Framework_TestCase
         self::assertTrue($a->equals($b));
     }
 
+    /**
+     * @group domain
+     */
     public function testTwoObjectsAreNotEqual()
     {
         $value1 = $this->faker->unique()->email;

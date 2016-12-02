@@ -6,6 +6,9 @@ use Domain\ValueObject\Currency;
 
 class CurrencyTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @group domain
+     */
     public function testCanBeConstructedWithValidCode()
     {
         self::assertInstanceOf(CurrencyInterface::class, new Currency('GBP'));
@@ -14,6 +17,7 @@ class CurrencyTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @group domain
      * @expectedException InvalidArgumentException
      * @expectedExceptionMessage Unknown currency code "AUD"
      */

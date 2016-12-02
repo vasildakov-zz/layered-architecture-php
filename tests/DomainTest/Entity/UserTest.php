@@ -6,35 +6,36 @@ use Domain\ValueObject;
 
 class UserTest extends \PHPUnit_Framework_TestCase
 {
-    private $faker;
+    private $id;
+    private $email;
+    private $hash;
 
     public function setUp()
     {
-        $this->faker = \Faker\Factory::create();
-
-        //$this->id = $this->prophesize(ValueObject\UuidInterface::class)->reveal();
+        $this->id    = $this->prophesize(ValueObject\Uuid::class)->reveal();
+        $this->email = $this->prophesize(ValueObject\Email::class)->reveal();
+        $this->hash  = $this->prophesize(ValueObject\HashedPassword::class)->reveal();
     }
 
+    /**
+     * @group domain
+     */
     public function testObjectCanBeConstructed()
     {
-        $id    = new ValueObject\Uuid($this->faker->unique()->uuid);
-        $email = new ValueObject\Email($this->faker->unique()->email);
-        $password = new ValueObject\HashedPassword($this->faker->unique()->sha256);
-
-        $user = new Entity\User($id, $email, $password);
+        $user = new Entity\User($this->id, $this->email, $this->hash);
 
         self::assertInstanceOf(Entity\User::class, $user);
     }
 
+    /**
+     * @group domain
+     */
     public function testObjectGetters()
     {
-        $id    = new ValueObject\Uuid($this->faker->unique()->uuid);
-        $email = new ValueObject\Email($this->faker->unique()->email);
-        $password = new ValueObject\HashedPassword($this->faker->unique()->sha256);
+        $user = new Entity\User($this->id, $this->email, $this->hash);
 
-        $user = new Entity\User($id, $email, $password);
-
-        self::assertEquals($id, $user->getId());
-        self::assertEquals($email, $user->getEmail());
+        self::assertEquals($this->id, $user->getId());
+        self::assertEquals($this->email, $user->getEmail());
+        self::assertEquals($this->hash, $user->getPassword());
     }
 }

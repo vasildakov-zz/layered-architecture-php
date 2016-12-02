@@ -1,5 +1,5 @@
 <?php
-namespace DomainTest\Entity;
+namespace DomainTest\Event;
 
 use Domain\Entity;
 use Domain\ValueObject;
@@ -7,29 +7,51 @@ use Domain\Event;
 
 class UserCreatedTest extends \PHPUnit_Framework_TestCase
 {
-    private $faker;
+    private $user;
+    private $uuid;
+    private $email;
 
     public function setUp()
     {
-        $faker = \Faker\Factory::create();
+        $this->user = $this->getMockBuilder(Entity\UserInterface::class)
+            ->disableOriginalConstructor()
+            ->getMock()
+        ;
 
-        $this->uuid = $faker->unique()->uuid;
-        $this->email = $faker->unique()->email;
-        $this->password = $faker->unique()->sha256;
+        $this->uuid = $this->getMockBuilder(ValueObject\Uuid::class)
+            ->disableOriginalConstructor()
+            ->getMock()
+        ;
 
+        $this->email = $this->getMockBuilder(ValueObject\Email::class)
+            ->disableOriginalConstructor()
+            ->getMock()
+        ;
     }
 
+
+    /**
+     * @group domain
+     */
     public function testObjectCanBeConstructedWithUser()
     {
-        $id    = new ValueObject\Uuid($this->uuid);
-        $email = new ValueObject\Email($this->email);
-        $password = new ValueObject\HashedPassword($this->password);
+        $this->user
+             ->expects($this->once())
+             ->method('getId')
+             ->willReturn($this->uuid)
+        ;
 
-        $event = new Event\UserCreated(new Entity\User($id, $email, $password));
+        $this->user
+             ->expects($this->once())
+             ->method('getEmail')
+             ->willReturn($this->email)
+        ;
+
+        $event = new Event\UserCreated($this->user);
 
         self::assertInstanceOf(Event\EventInteface::class, $event);
 
-        self::assertEquals($id, $event->id());
-        self::assertEquals($email, $event->email());
+        self::assertEquals($this->uuid, $event->id());
+        self::assertEquals($this->email, $event->email());
     }
 }

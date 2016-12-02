@@ -25,9 +25,7 @@ class BcryptHashingServiceTest extends \PHPUnit_Framework_TestCase
 
         $hash = (new BcryptHashingService())($password);
 
-        $idValid = \password_verify('rasmuslerdorf', $hash);
-
-        self::assertTrue($idValid);
-
+        self::assertInstanceOf(HashedPassword::class, $hash);
+        self::assertTrue(\password_verify('rasmuslerdorf', $hash));
     }
 }

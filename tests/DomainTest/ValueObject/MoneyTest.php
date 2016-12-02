@@ -7,7 +7,9 @@ use Domain\ValueObject\Currency;
 
 class MoneyTest extends \PHPUnit_Framework_TestCase
 {
-
+    /**
+     * @group domain
+     */
     public function testCanBeConstructedWithObject()
     {
         $money = new Money(100, new Currency('GBP'));
@@ -15,6 +17,9 @@ class MoneyTest extends \PHPUnit_Framework_TestCase
         self::assertInstanceOf(MoneyInterface::class, $money);
     }
 
+    /**
+     * @group domain
+     */
     public function testCanBeConstructedWithString()
     {
         self::assertInstanceOf(MoneyInterface::class, new Money(100, 'GBP'));
@@ -23,6 +28,7 @@ class MoneyTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * domain
      * @expectedException InvalidArgumentException
      * @expectedExceptionMessage $amount must be an integer
      */
