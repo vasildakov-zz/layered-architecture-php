@@ -1,6 +1,8 @@
 <?php
 namespace Domain\Repository;
 
+use Domain\Entity\User;
+
 /**
  * UserRepositoryInterface
  *
@@ -8,4 +10,15 @@ namespace Domain\Repository;
  */
 interface UserRepositoryInterface
 {
+    /**
+     * @param  User   $user
+     * @return void
+     */
+    public function save(User $user);
+
+    /**
+     * @param  Uuid   $id
+     * @return User|null
+     */
+    public function find(Uuid $id);
 }
