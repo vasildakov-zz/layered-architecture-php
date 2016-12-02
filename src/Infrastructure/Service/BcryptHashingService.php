@@ -28,14 +28,9 @@ class BcryptHashingService implements HashingService
     /**
      * @param  \Domain\ValueObject\Password          $password
      * @return \Domain\ValueObject\HashedPassword
-     * @throws \RuntimeException
      */
     public function __invoke(Password $password): HashedPassword
     {
-        if (!extension_loaded('mcrypt')) {
-            throw new \RuntimeException("mcrypt extension is not loaded");
-        }
-
         $hash = \password_hash( (string)$password, PASSWORD_BCRYPT, [self::COST]);
 
         return new HashedPassword($hash);
