@@ -5,6 +5,8 @@
  */
 namespace Domain\Service;
 
+use Domain\ValueObject\Uuid;
+
 /**
  * Interface IdentityGenerator
  *
@@ -14,7 +16,7 @@ interface IdentityGenerator
 {
     /**
      * Returns unique identity
-     * @return string
+     * @return Uuid
      */
-    public function __invoke() : string;
+    public function __invoke() : Uuid;
 }
