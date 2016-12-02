@@ -2,9 +2,12 @@
 namespace Application\User;
 
 use Domain\Entity\User;
+
 use Domain\ValueObject\Email;
 use Domain\ValueObject\Password;
+
 use Domain\Repository\UserRepositoryInterface;
+
 use Domain\Service\IdentityGenerator;
 use Domain\Service\HashingService;
 
