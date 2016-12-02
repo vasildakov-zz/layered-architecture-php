@@ -25,6 +25,9 @@ class CreateUserResponse implements \JsonSerializable
         $this->id = (string) $user->getId();
     }
 
+    /**
+     * @return string uuid
+     */
     public function id()
     {
         return $this->id;

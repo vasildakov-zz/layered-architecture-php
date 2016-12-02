@@ -25,6 +25,15 @@ final class CreateUser implements CreateUserInterface
      */
     private $users;
 
+    /**
+     * @var \Domain\Service\IdentityGenerator
+     */
+    private $generator;
+
+    /**
+     * @var \Domain\Service\HashingService
+     */
+    private $hasher;
 
     /**
      * @var \Psr\Log\LoggerInterface
@@ -50,17 +59,17 @@ final class CreateUser implements CreateUserInterface
 
 
     /**
-     * @param  CreateUserRequest $request
-     * @return void
+     * @param  CreateUserRequest  $request
+     * @return CreateUserResponse $response
      */
     public function __invoke(Request $request): Response
     {
-        // implementation
-        $id = ($this->generator)();
-        $email = new Email($request->email());
-        $hash = ($this->hasher)(new Password($request->password()));
+        $id    = ($this->generator)();
+        $email = (new Email($request->email()));
+        $hash  = ($this->hasher)(new Password($request->password()));
 
         $user = new User($id, $email, $hash);
+        // $this->users->add($user);
 
         return new Response($user);
     }
