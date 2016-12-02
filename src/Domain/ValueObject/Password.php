@@ -4,14 +4,12 @@ declare(strict_types = 1);
 namespace Domain\ValueObject;
 
 /**
- * Class HashedPassword
+ * Class Password
  *
  * @author Vasil Dakov <vasildakov@gmail.com>
  */
-final class HashedPassword
+final class Password
 {
-    const REGEX_BCRYPT = '/^\$2y\$.{56}$/';
-
     /**
      * @var string
      */
@@ -22,13 +20,8 @@ final class HashedPassword
      */
     public function __construct(string $value)
     {
-        if(!\preg_match(self::REGEX_BCRYPT, $value, $matches)) {
-            throw new \Exception("Invalid hash");
-        }
-
         $this->value = $value;
     }
-
 
     public function getValue()
     {
