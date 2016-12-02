@@ -5,7 +5,7 @@ use Domain\Entity;
 use Domain\ValueObject;
 use Domain\Event;
 
-class UserCreatedTest extends \PHPUnit_Framework_TestCase
+class UserIsCreatedTest extends \PHPUnit_Framework_TestCase
 {
     private $user;
     private $uuid;
@@ -47,7 +47,7 @@ class UserCreatedTest extends \PHPUnit_Framework_TestCase
              ->willReturn($this->email)
         ;
 
-        $event = new Event\UserCreated($this->user);
+        $event = new Event\UserIsCreated($this->user);
 
         self::assertInstanceOf(Event\EventInteface::class, $event);
 
