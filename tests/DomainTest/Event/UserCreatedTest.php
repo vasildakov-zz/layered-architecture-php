@@ -11,7 +11,7 @@ class UserCreatedTest extends \PHPUnit_Framework_TestCase
     private $uuid;
     private $email;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->user = $this->getMockBuilder(Entity\UserInterface::class)
             ->disableOriginalConstructor()

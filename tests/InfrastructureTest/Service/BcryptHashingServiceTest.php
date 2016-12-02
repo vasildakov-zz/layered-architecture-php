@@ -8,6 +8,16 @@ use Infrastructure\Service\BcryptHashingService;
 
 class BcryptHashingServiceTest extends \PHPUnit_Framework_TestCase
 {
+    protected function setUp()
+    {
+        if (!extension_loaded('mcrypt')) {
+            $this->markTestSkipped(
+              'The mcrypt extension is not available.'
+            );
+        }
+    }
+
+
     /**
      * @group infrastructure
      */

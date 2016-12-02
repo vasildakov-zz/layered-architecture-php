@@ -7,7 +7,7 @@ class EmailTest extends \PHPUnit_Framework_TestCase
 {
     private $faker;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->faker = \Faker\Factory::create();
     }

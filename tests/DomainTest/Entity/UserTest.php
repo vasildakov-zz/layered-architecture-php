@@ -10,7 +10,7 @@ class UserTest extends \PHPUnit_Framework_TestCase
     private $email;
     private $hash;
 
-    public function setUp()
+    protected function setUp()
     {
         $this->id    = $this->prophesize(ValueObject\Uuid::class)->reveal();
         $this->email = $this->prophesize(ValueObject\Email::class)->reveal();
