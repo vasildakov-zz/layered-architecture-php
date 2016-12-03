@@ -2,7 +2,7 @@
 namespace Infrastructure\Repository\Mock;
 
 use Domain\Entity\User;
-use Domain\ValueObject\Uuid;
+use Domain\ValueObject\Identity;
 use Domain\Repository\UserRepositoryInterface;
 
 /**
@@ -10,11 +10,14 @@ use Domain\Repository\UserRepositoryInterface;
  *
  * @author Vasil Dakov <vasildakov@gmail.com>
  */
-class UserRepository implements \Domain\Repository\UserRepositoryInterface
+class UserRepository implements UserRepositoryInterface
 {
     protected $items = [];
 
-    public function __construct() {}
+    public function __construct()
+    {
+
+    }
 
 
     public function save(User $user)
@@ -36,7 +39,7 @@ class UserRepository implements \Domain\Repository\UserRepositoryInterface
     }
 
 
-    public function find(Uuid $id)
+    public function find(Identity $id)
     {
         foreach ($this->items as $item) {
             if ($item->getId()->equals($id)) {

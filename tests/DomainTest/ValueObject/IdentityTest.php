@@ -1,9 +1,10 @@
 <?php
 namespace DomainTest\ValueObject;
 
-use Domain\ValueObject\Uuid;
+use Domain\ValueObject\IdentityInterface;
+use Domain\ValueObject\Identity;
 
-class UuidTest extends \PHPUnit_Framework_TestCase
+class IdentityTest extends \PHPUnit_Framework_TestCase
 {
     private $faker;
 
@@ -19,7 +20,7 @@ class UuidTest extends \PHPUnit_Framework_TestCase
     {
         $value = $this->faker->unique()->uuid;
 
-        self::assertInstanceOf(Uuid::class, new Uuid($value));
+        self::assertInstanceOf(IdentityInterface::class, new Identity($value));
     }
 
     /**
@@ -29,7 +30,7 @@ class UuidTest extends \PHPUnit_Framework_TestCase
      */
     public function testConstructorThrowsAnException()
     {
-        $uuid = new Uuid('some-invalid-uuid-string');
+        $uuid = new Identity('some-invalid-uuid-string');
     }
 
     /**
@@ -39,8 +40,8 @@ class UuidTest extends \PHPUnit_Framework_TestCase
     {
         $value = $this->faker->unique()->uuid;
 
-        $a = new Uuid($value);
-        $b = new Uuid($value);
+        $a = new Identity($value);
+        $b = new Identity($value);
 
         self::assertTrue($a->equals($b));
     }
@@ -50,11 +51,8 @@ class UuidTest extends \PHPUnit_Framework_TestCase
      */
     public function testTwoObjectsAreNotEqual()
     {
-        $value1 = $this->faker->unique()->uuid;
-        $value2 = $this->faker->unique()->uuid;
-
-        $a = new Uuid($value1);
-        $b = new Uuid($value2);
+        $a = new Identity($this->faker->unique()->uuid);
+        $b = new Identity($this->faker->unique()->uuid);
 
         self::assertFalse($a->equals($b));
     }

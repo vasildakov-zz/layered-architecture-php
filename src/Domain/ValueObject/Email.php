@@ -8,7 +8,7 @@ namespace Domain\ValueObject;
  *
  * @author Vasil Dakov <vasildakov@gmail.com>
  */
-class Email implements EmailInterface, \JsonSerializable
+final class Email implements EmailInterface, \JsonSerializable
 {
     /**
      * @var string
@@ -29,16 +29,23 @@ class Email implements EmailInterface, \JsonSerializable
 
     public function equals(EmailInterface $other)
     {
-        return strtolower((string) $this) === strtolower((string) $other);
+        return strtolower($this->getValue()) === strtolower($other->getValue());
+    }
+
+    public function getValue()
+    {
+        return $this->value;
     }
 
     public function __toString()
     {
-        return (string) $this->value;
+        return (string) $this->getValue();
     }
 
     public function jsonSerialize()
     {
-        return [];
+        return [
+            'email' => $this->getValue()
+        ];
     }
 }

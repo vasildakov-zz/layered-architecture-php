@@ -21,5 +21,5 @@ interface HashingService
      * @param  Password $password
      * @return HashedPassword
      */
-    public function __invoke(Password $password) : HashedPassword;
+    public function __invoke(Password $password);
 }

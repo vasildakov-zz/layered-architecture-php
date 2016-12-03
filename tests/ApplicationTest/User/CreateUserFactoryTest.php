@@ -6,7 +6,6 @@ use Psr\Log\LoggerInterface;
 
 use Domain\Repository\UserRepositoryInterface;
 use Domain\Service\HashingService;
-use Domain\Service\IdentityGenerator;
 
 use Application\User\CreateUserInterface;
 use Application\User\CreateUserFactory;
@@ -16,7 +15,6 @@ class CreateUserFactoryTest extends \PHPUnit_Framework_TestCase
 {
     private $container;
     private $users;
-    private $generator;
     private $hasher;
     private $logger;
 
@@ -28,11 +26,6 @@ class CreateUserFactoryTest extends \PHPUnit_Framework_TestCase
         ;
 
         $this->users = $this->getMockBuilder(UserRepositoryInterface::class)
-            ->disableOriginalConstructor()
-            ->getMock()
-        ;
-
-        $this->generator = $this->getMockBuilder(IdentityGenerator::class)
             ->disableOriginalConstructor()
             ->getMock()
         ;
@@ -62,22 +55,16 @@ class CreateUserFactoryTest extends \PHPUnit_Framework_TestCase
             ->willReturn($this->users)
         ;
 
-        $this->container
-            ->expects($this->at(1))
-            ->method('get')
-            ->with(IdentityGenerator::class)
-            ->willReturn($this->generator)
-        ;
 
         $this->container
-            ->expects($this->at(2))
+            ->expects($this->at(1))
             ->method('get')
             ->with(HashingService::class)
             ->willReturn($this->hasher)
         ;
 
         $this->container
-            ->expects($this->at(3))
+            ->expects($this->at(2))
             ->method('get')
             ->with(LoggerInterface::class)
             ->willReturn($this->logger)

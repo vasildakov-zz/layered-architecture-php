@@ -1,7 +1,7 @@
 <?php
 namespace Domain\Event;
 
-use Domain\Entity\UserInterface;
+use Domain\Entity\User;
 
 /**
  * Class UserIsCreated
@@ -28,7 +28,7 @@ class UserIsCreated implements EventInteface
     /**
      * @param User $user
      */
-    public function __construct(UserInterface $user)
+    public function __construct(User $user)
     {
         $this->id    = (string) $user->getId();
         $this->email = (string) $user->getEmail();

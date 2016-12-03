@@ -8,5 +8,4 @@ interface EmailInterface
      * @return bool
      */
     public function equals(EmailInterface $other);
-
 }

@@ -1,8 +1,8 @@
 <?php
-namespace InfrastructureTest\ValueObject;
+namespace InfrastructureTest\Repository\Mock;
 
-use Domain\Entity\User;
-use Domain\ValueObject\Uuid;
+use Domain\Entity\UserInterface;
+use Domain\ValueObject\IdentityInterface;
 use Domain\Repository\UserRepositoryInterface;
 use Infrastructure\Repository\Mock\UserRepository;
 
@@ -10,16 +10,18 @@ class UserRepositoryTest extends \PHPUnit_Framework_TestCase
 {
     private $user;
 
-    private $uuid;
+    private $identity;
 
     protected function setUp()
     {
-        $this->user = $this->getMockBuilder(User::class)
+        $this->user = $this->getMockBuilder(UserInterface::class)
+            ->setMethods(['getId', 'getEmail', 'setPassword', 'getPassword'])
             ->disableOriginalConstructor()
             ->getMock()
         ;
 
-        $this->uuid = $this->getMockBuilder(Uuid::class)
+        $this->identity = $this->getMockBuilder(IdentityInterface::class)
+            ->setMethods(['equals'])
             ->disableOriginalConstructor()
             ->getMock()
         ;
@@ -55,20 +57,20 @@ class UserRepositoryTest extends \PHPUnit_Framework_TestCase
         $this->user
              ->expects($this->exactly(2))
              ->method('getId')
-             ->willReturn($this->uuid)
+             ->willReturn($this->identity)
         ;
 
-        $this->uuid
+        $this->identity
              ->expects($this->once())
              ->method('equals')
-             ->with($this->uuid)
+             ->with($this->identity)
              ->willReturn(true)
         ;
 
         $repository = new UserRepository();
         $repository->save($this->user);
 
-        $user = $repository->find($this->uuid);
+        $user = $repository->find($this->identity);
 
         self::assertInstanceOf(User::class, $user);
     }
@@ -81,19 +83,19 @@ class UserRepositoryTest extends \PHPUnit_Framework_TestCase
         $this->user
              ->expects($this->exactly(2))
              ->method('getId')
-             ->willReturn($this->uuid)
+             ->willReturn($this->identity)
         ;
 
-        $this->uuid
+        $this->identity
              ->expects($this->once())
              ->method('equals')
-             ->with($this->uuid)
+             ->with($this->identity)
              ->willReturn(false)
         ;
 
         $repository = new UserRepository();
         $repository->save($this->user);
 
-        self::assertNull($repository->find($this->uuid));
+        self::assertNull($repository->find($this->identity));
     }
 }

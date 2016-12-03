@@ -23,7 +23,7 @@ class HashedPassword
      */
     public function __construct($value)
     {
-        if(!\preg_match(self::REGEX_BCRYPT, $value, $matches)) {
+        if (!\preg_match(self::REGEX_BCRYPT, $value, $matches)) {
             throw new \Exception("Invalid hash");
         }
 

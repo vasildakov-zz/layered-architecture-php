@@ -1,12 +1,11 @@
 <?php
 namespace Domain\ValueObject;
 
-interface UuidInterface
+interface IdentityInterface
 {
     /**
      * @param  UuidInterface $other
      * @return bool
      */
-    public function equals(UuidInterface $other);
-
+    public function equals(IdentityInterface $other);
 }

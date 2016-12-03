@@ -1,5 +1,5 @@
 <?php
-namespace InfrastructureTest\ValueObject;
+namespace InfrastructureTest\Service;
 
 use Domain\ValueObject\Password;
 use Domain\ValueObject\HashedPassword;
@@ -34,5 +34,14 @@ class BcryptHashingServiceTest extends \PHPUnit_Framework_TestCase
 
         self::assertInstanceOf(HashedPassword::class, $hash);
         self::assertTrue(\password_verify('rasmuslerdorf', $hash));
+    }
+
+
+    public function testAbc()
+    {
+        $password = new Password('rasmuslerdorf');
+
+        $hash = BcryptHashingService::hash($password);
+        var_dump($hash);
     }
 }

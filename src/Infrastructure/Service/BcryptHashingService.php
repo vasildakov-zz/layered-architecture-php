@@ -30,8 +30,14 @@ class BcryptHashingService implements HashingService
      */
     public function __invoke(Password $password): HashedPassword
     {
-        $hash = \password_hash( (string) $password, PASSWORD_BCRYPT, [self::COST]);
+        $hash = \password_hash((string) $password, PASSWORD_BCRYPT, [self::COST]);
 
         return new HashedPassword($hash);
+    }
+
+
+    public static function hash(Password $password)
+    {
+        return new static($password);
     }
 }
