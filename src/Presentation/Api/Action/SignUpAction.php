@@ -24,6 +24,7 @@ class SignUpAction implements MiddlewareInterface
     public function __construct(CommandBus $bus)
     {
         $this->bus = $bus;
+        $this->filter = (new SignUpFilter())();
     }
 
     /**
@@ -35,12 +36,27 @@ class SignUpAction implements MiddlewareInterface
     public function __invoke(Request $request, Response $response, callable $next = null)
     {
         $body    = $request->getBody();
-        $content = Json::decode($body->getContents(), Json::TYPE_OBJECT);
+        $content = Json::decode($body->getContents(), Json::TYPE_ARRAY);
 
-        $command = new SignUpRequest($content->email, $content->password);
 
-        $result = $this->bus->handle($command);
+        $this->filter->setData($content);
+        if(!$this->filter->isValid()) {
+            $errors = $this->filter->getMessages();
+            return new JsonResponse($errors, 400);
+        }
 
-        return new JsonResponse($result, 200);
+        try {
+            $command = new SignUpRequest(
+                $this->filter->getValue('email'),
+                $this->filter->getValue('password')
+            );
+
+            $result = $this->bus->handle($command);
+
+            return new JsonResponse($result, 200);
+
+        } catch (\Exception $e) {
+            //
+        }
     }
 }

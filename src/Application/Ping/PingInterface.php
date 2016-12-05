@@ -10,7 +10,7 @@ interface PingInterface
 {
     /**
      * @param  PingRequest    $request
-     * @return SignUpResponse $response
+     * @return PingResponse   $response
      */
     public function __invoke(PingRequest $request): PingResponse;
 }

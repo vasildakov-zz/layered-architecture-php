@@ -19,7 +19,6 @@ class PingFactory
     public function __invoke(ContainerInterface $container)
     {
         $logger = $container->get(\Zend\Log\Logger::class);
-        //$logger = $container->get(\Monolog\Logger::class);
 
         return new Ping($logger);
     }

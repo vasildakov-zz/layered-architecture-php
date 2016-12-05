@@ -10,6 +10,7 @@ use Domain\Service\HashingService;
 
 use Application\User\SignUpRequest;
 use Application\User\SignUpResponse;
+use Application\User\SignUpFilter;
 
 use Psr\Log\LoggerInterface;
 
@@ -37,6 +38,7 @@ final class SignUp implements SignUpInterface
 
     /**
      * @param UserRepositoryInterface $users
+     * @param SignUpFilter            $filter
      * @param LoggerInterface         $logger
      */
     public function __construct(

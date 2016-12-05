@@ -9,6 +9,7 @@ use Zend\Diactoros\Response\JsonResponse;
 use League\Tactician\CommandBus;
 
 use Application\Ping\PingRequest;
+use Application\Ping\PingResponse;
 
 /**
  * Class PingAction
@@ -18,12 +19,12 @@ use Application\Ping\PingRequest;
 class PingAction
 {
     /**
-     * @var CommandBus
+     * @var \League\Tactician\CommandBus
      */
     private $bus;
 
     /**
-     * @param CommandBus $bus
+     * @param \League\Tactician\CommandBus $bus
      */
     public function __construct(CommandBus $bus)
     {
@@ -31,17 +32,21 @@ class PingAction
     }
 
     /**
-     * @param  ServerRequestInterface $request
-     * @param  ResponseInterface      $response
+     * @param  Request                $request
+     * @param  Response               $response
      * @param  callable|null          $next
-     * @return Response
+     * @return JsonResponse
      */
     public function __invoke(Request $request, Response $response, callable $next = null)
     {
-        $command = new PingRequest(new \DateTime);
+        try {
+            $PingRequest  = new PingRequest(new \DateTime);
+            $PingResponse = $this->bus->handle($PingRequest);
 
-        $result = $this->bus->handle($command);
+            return new JsonResponse($PingResponse, 200);
 
-        return new JsonResponse($result, 200);
+        } catch (\Exception $e) {
+            // handle exceptions
+        }
     }
 }
