@@ -28,7 +28,7 @@ final class Identity implements IdentityInterface
     public function __construct($value = null)
     {
         if (null !== $value) {
-            if (!\preg_match(self::REGEX_UUID, $value)) {
+            if (!\preg_match(self::REGEX_UUID, (string)$value)) {
                 throw new \InvalidArgumentException(sprintf('"%s" is not a valid uuid', $value));
             }
         }

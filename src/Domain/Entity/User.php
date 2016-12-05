@@ -5,7 +5,7 @@ namespace Domain\Entity;
 
 use Domain\ValueObject\IdentityInterface as Identity;
 use Domain\ValueObject\EmailInterface as Email;
-use Domain\ValueObject\HashedPassword;
+use Domain\ValueObject\Password;
 
 /**
  * Class User
@@ -33,9 +33,9 @@ class User implements UserInterface
     /**
      * @param IdentityInterface        $id
      * @param EmailInterface           $email
-     * @param HashedPassword  $password
+     * @param Password                 $password
      */
-    public function __construct(Identity $id, Email $email, HashedPassword $password)
+    public function __construct(Identity $id, Email $email, Password $password)
     {
         $this->id = $id;
         $this->email = $email;
@@ -47,7 +47,7 @@ class User implements UserInterface
 
     private function raise(EventInteface $event)
     {
-        $this->events[] = $event;
+        //$this->events[] = $event;
     }
 
 
@@ -59,6 +59,7 @@ class User implements UserInterface
         return $this->id;
     }
 
+
     /**
      * @return \Domain\ValueObject\Email $email
      */
@@ -69,16 +70,16 @@ class User implements UserInterface
 
 
     /**
-     * @param \Domain\ValueObject\HashedPassword $password
+     * @param \Domain\ValueObject\Password $password
      */
-    public function setPassword(HashedPassword $password)
+    public function setPassword(Password $password)
     {
         $this->password = $password;
     }
 
 
     /**
-     * @return \Domain\ValueObject\HashedPassword $password
+     * @return \Domain\ValueObject\Password $password
      */
     public function getPassword()
     {

@@ -3,7 +3,7 @@ namespace Domain\Entity;
 
 use Domain\ValueObject\Identity;
 use Domain\ValueObject\Email;
-use Domain\ValueObject\HashedPassword;
+use Domain\ValueObject\Password;
 
 /**
  * UserInterface
@@ -23,12 +23,12 @@ interface UserInterface
     public function getEmail();
 
     /**
-     * @param \Domain\ValueObject\HashedPassword
+     * @param \Domain\ValueObject\Password
      */
-    public function setPassword(HashedPassword $hash);
+    public function setPassword(Password $hash);
 
     /**
-     * @return \Domain\ValueObject\HashedPassword
+     * @return \Domain\ValueObject\Password
      */
     public function getPassword();
 }
