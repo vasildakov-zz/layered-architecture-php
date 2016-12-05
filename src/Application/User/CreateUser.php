@@ -3,6 +3,7 @@ namespace Application\User;
 
 use Domain\Entity\User;
 
+use Domain\ValueObject\Uuid;
 use Domain\ValueObject\Email;
 use Domain\ValueObject\Password;
 
@@ -29,11 +30,6 @@ final class CreateUser implements CreateUserInterface
     private $users;
 
     /**
-     * @var \Domain\Service\IdentityGenerator
-     */
-    private $generator;
-
-    /**
      * @var \Domain\Service\HashingService
      */
     private $hasher;
@@ -50,12 +46,10 @@ final class CreateUser implements CreateUserInterface
      */
     public function __construct(
         UserRepositoryInterface $users,
-        IdentityGenerator $generator,
         HashingService $hasher,
         LoggerInterface $logger
     ) {
         $this->users     = $users;
-        $this->generator = $generator;
         $this->hasher    = $hasher;
         $this->logger    = $logger;
     }
@@ -65,13 +59,14 @@ final class CreateUser implements CreateUserInterface
      * @param  CreateUserRequest  $request
      * @return CreateUserResponse $response
      */
-    public function __invoke(Request $request): Response
+    public function __invoke(Request $command): Response
     {
-        $id    = ($this->generator)();
-        $email = (new Email($request->email()));
-        $hash  = ($this->hasher)(new Password($request->password()));
+        $user = new User(
+            new Uuid($command->id()),
+            new Email($command->email()),
+            ($this->hasher)(new Password($command->password()))
+        );
 
-        $user = new User($id, $email, $hash);
         // $this->users->add($user);
 
         return new Response($user);

@@ -6,7 +6,6 @@ use Interop\Container\Exception;
 use Psr\Log\LoggerInterface;
 
 use Domain\Repository\UserRepositoryInterface;
-use Domain\Service\IdentityGenerator;
 use Domain\Service\HashingService;
 
 /**
@@ -23,10 +22,9 @@ class CreateUserFactory
     public function __invoke(ContainerInterface $container)
     {
         $users     = $container->get(UserRepositoryInterface::class);
-        $generator = $container->get(IdentityGenerator::class);
         $hasher    = $container->get(HashingService::class);
         $logger    = $container->get(LoggerInterface::class);
 
-        return new CreateUser($users, $generator, $hasher, $logger);
+        return new CreateUser($users, $hasher, $logger);
     }
 }

@@ -3,8 +3,8 @@ declare(strict_types = 1);
 
 namespace Domain\Entity;
 
-use Domain\ValueObject\Uuid;
-use Domain\ValueObject\Email;
+use Domain\ValueObject\IdentityInterface as Identity;
+use Domain\ValueObject\EmailInterface as Email;
 use Domain\ValueObject\HashedPassword;
 
 /**
@@ -15,7 +15,7 @@ use Domain\ValueObject\HashedPassword;
 class User implements UserInterface
 {
     /**
-     * @var \Domain\ValueObject\Uuid
+     * @var \Domain\ValueObject\Identity
      */
     private $id;
 
@@ -31,11 +31,11 @@ class User implements UserInterface
 
 
     /**
-     * @param \Domain\ValueObject\Uuid            $id
-     * @param \Domain\ValueObject\Email           $email
-     * @param \Domain\ValueObject\HashedPassword  $password
+     * @param IdentityInterface        $id
+     * @param EmailInterface           $email
+     * @param HashedPassword  $password
      */
-    public function __construct(Uuid $id, Email $email, HashedPassword $password)
+    public function __construct(Identity $id, Email $email, HashedPassword $password)
     {
         $this->id = $id;
         $this->email = $email;
@@ -52,9 +52,9 @@ class User implements UserInterface
 
 
     /**
-     * @return \Domain\ValueObject\Uuid  $id
+     * @return \Domain\ValueObject\Identity  $id
      */
-    public function getId(): Uuid
+    public function getId()
     {
         return $this->id;
     }
@@ -62,7 +62,7 @@ class User implements UserInterface
     /**
      * @return \Domain\ValueObject\Email $email
      */
-    public function getEmail(): Email
+    public function getEmail()
     {
         return $this->email;
     }
@@ -80,7 +80,7 @@ class User implements UserInterface
     /**
      * @return \Domain\ValueObject\HashedPassword $password
      */
-    public function getPassword(): HashedPassword
+    public function getPassword()
     {
         return $this->password;
     }

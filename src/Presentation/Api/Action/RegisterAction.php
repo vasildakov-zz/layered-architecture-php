@@ -36,6 +36,8 @@ class RegisterAction implements MiddlewareInterface
         $body    = $request->getBody();
         $content = Json::decode($body->getContents(), Json::TYPE_OBJECT);
 
+        $id = Uuid::uuid4();
+        
         $command = new CreateUserRequest($content->email, $content->password);
 
         $this->bus->handle($command);

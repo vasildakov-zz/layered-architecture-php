@@ -1,7 +1,7 @@
 <?php
 namespace Domain\Entity;
 
-use Domain\ValueObject\Uuid;
+use Domain\ValueObject\Identity;
 use Domain\ValueObject\Email;
 use Domain\ValueObject\HashedPassword;
 
@@ -13,14 +13,14 @@ use Domain\ValueObject\HashedPassword;
 interface UserInterface
 {
     /**
-     * @return \Domain\ValueObject\Uuid
+     * @return \Domain\ValueObject\Identity
      */
-    public function getId() : Uuid;
+    public function getId();
 
     /**
      * @return \Domain\ValueObject\Email
      */
-    public function getEmail() : Email;
+    public function getEmail();
 
     /**
      * @param \Domain\ValueObject\HashedPassword
@@ -30,6 +30,5 @@ interface UserInterface
     /**
      * @return \Domain\ValueObject\HashedPassword
      */
-    public function getPassword() : HashedPassword;
-
+    public function getPassword();
 }

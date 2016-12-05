@@ -23,6 +23,7 @@ class CreateUserRequest implements \JsonSerializable
     /**
      * Constructor
      *
+     * @param id $email
      * @param string $email
      * @param string $password
      */
@@ -32,6 +33,7 @@ class CreateUserRequest implements \JsonSerializable
 
         $this->password = $password;
     }
+
 
     /**
      * @return string $email

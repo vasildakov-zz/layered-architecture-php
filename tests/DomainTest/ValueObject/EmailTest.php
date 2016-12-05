@@ -50,12 +50,32 @@ class EmailTest extends \PHPUnit_Framework_TestCase
      */
     public function testTwoObjectsAreNotEqual()
     {
-        $value1 = $this->faker->unique()->email;
-        $value2 = $this->faker->unique()->email;
-
-        $a = new Email($value1);
-        $b = new Email($value2);
+        $a = new Email($this->faker->unique()->email);
+        $b = new Email($this->faker->unique()->email);
 
         self::assertFalse($a->equals($b));
+    }
+
+    /**
+     * @group domain
+     */
+    public function testItCanBeJsonSerialized()
+    {
+        $email = new Email('vasildakov@gmail.com');
+        $array = $email->jsonSerialize();
+
+        self::assertInternalType('array', $array);
+        self::assertArrayHasKey('email', $array);
+        self::assertEquals('vasildakov@gmail.com', $array['email']);
+    }
+
+    /**
+     * @group domain
+     */
+    public function testItCanBeConvertedToString()
+    {
+        $email = new Email('vasildakov@gmail.com');
+
+        self::assertInternalType('string', (string) $email);
     }
 }
