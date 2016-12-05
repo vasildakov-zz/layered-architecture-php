@@ -8,7 +8,7 @@ use Psr\Http\Message\ResponseInterface as Response;
 use Zend\Diactoros\Response\JsonResponse;
 use League\Tactician\CommandBus;
 
-use Application\Ping\PingCommand;
+use Application\Ping\PingRequest;
 
 /**
  * Class PingAction
@@ -38,12 +38,10 @@ class PingAction
      */
     public function __invoke(Request $request, Response $response, callable $next = null)
     {
-        $command = new PingCommand();
+        $command = new PingRequest(new \DateTime);
 
-        $this->bus->handle($command);
+        $result = $this->bus->handle($command);
 
-        return new JsonResponse([
-            'ack' => $command->time()
-        ]);
+        return new JsonResponse($result, 200);
     }
 }

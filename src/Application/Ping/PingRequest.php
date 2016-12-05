@@ -4,11 +4,11 @@ declare(strict_types = 1);
 namespace Application\Ping;
 
 /**
- * Class PingCommand
+ * Class PingRequest
  *
  * @author Vasil Dakov <vasildakov@gmail.com>
  */
-final class PingCommand
+final class PingRequest
 {
     private $time;
 

@@ -5,15 +5,12 @@ namespace Application\Ping;
 
 use Interop\Container\ContainerInterface;
 
-use Monolog\Logger as MonologLogger;
-use Zend\Log\Logger as ZendLogger;
-
 /**
- * Class PingHandlerFactory
+ * Class PingFactory
  *
  * @author Vasil Dakov <vasildakov@gmail.com>
  */
-class PingHandlerFactory
+class PingFactory
 {
     /**
      * @param  ContainerInterface $container
@@ -21,8 +18,9 @@ class PingHandlerFactory
      */
     public function __invoke(ContainerInterface $container)
     {
-        $logger = $container->get(ZendLogger::class);
+        $logger = $container->get(\Zend\Log\Logger::class);
+        //$logger = $container->get(\Monolog\Logger::class);
 
-        return new PingHandler($logger);
+        return new Ping($logger);
     }
 }

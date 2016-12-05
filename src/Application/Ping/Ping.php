@@ -6,11 +6,11 @@ namespace Application\Ping;
 use Psr\Log\LoggerInterface;
 
 /**
- * Class PingHandler
+ * Class Ping Service
  *
  * @author Vasil Dakov <vasildakov@gmail.com>
  */
-final class PingHandler
+final class Ping implements PingInterface
 {
     /**
      * @var LoggerInterface
@@ -29,11 +29,14 @@ final class PingHandler
 
     /**
      * @param  PingCommand $command
-     * @return
+     * @return PingResponse
      */
-    public function __invoke(PingCommand $command)
+    public function __invoke(PingRequest $command): PingResponse
     {
         $time = $command->time();
+
         $this->logger->info(sprintf('Ping time %s', $time));
+
+        return new PingResponse($time);
     }
 }

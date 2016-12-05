@@ -26,7 +26,7 @@ class CommandBusFactory
         $inflector = new InvokeInflector();
 
         $commandsMapping = [
-            \Application\Ping\PingCommand::class   => \Application\Ping\PingHandler::class,
+            \Application\Ping\PingRequest::class   => \Application\Ping\Ping::class,
             \Application\User\SignUpRequest::class => \Application\User\SignUp::class,
         ];
 
