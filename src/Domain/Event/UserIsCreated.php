@@ -34,6 +34,7 @@ class UserIsCreated implements EventInteface
         $this->email = (string) $user->getEmail();
     }
 
+
     public function id()
     {
         return $this->id;

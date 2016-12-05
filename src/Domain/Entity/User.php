@@ -40,7 +40,16 @@ class User implements UserInterface
         $this->id = $id;
         $this->email = $email;
         $this->password = $password;
+
+        //$this->raise(new Event\UserIsCreated($this));
     }
+
+
+    private function raise(EventInteface $event)
+    {
+        $this->events[] = $event;
+    }
+
 
     /**
      * @return \Domain\ValueObject\Uuid  $id
