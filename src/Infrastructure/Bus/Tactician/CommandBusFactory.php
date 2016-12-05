@@ -10,9 +10,6 @@ use League\Tactician\Handler\CommandNameExtractor\ClassNameExtractor;
 use League\Tactician\Handler\MethodNameInflector\InvokeInflector;
 use Interop\Container\ContainerInterface;
 
-#use Application\Ping\PingCommand;
-#use Application\Ping\PingHandler;
-
 /**
  * Class CommandBusFactory
  *
