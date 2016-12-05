@@ -3,7 +3,7 @@
 return [
     'dependencies' => [
         'factories' => [
-            // CommandBus
+            // Command Bus
             League\Tactician\CommandBus::class => Infrastructure\Bus\Tactician\CommandBusFactory::class,
 
             // Logger
@@ -12,6 +12,9 @@ return [
 
             // Doctrine
             Doctrine\ORM\EntityManager::class => Infrastructure\Doctrine\EntityManagerFactory::class,
+
+            // Repository
+            Infrastructure\Repository\Mock\UserRepository::class => Infrastructure\Repository\Mock\UserRepositoryFactory::class
         ],
     ]
 ];
