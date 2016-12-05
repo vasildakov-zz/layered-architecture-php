@@ -8,7 +8,7 @@ namespace Application\User;
  *
  * @author Vasil Dakov <vasildakov@gmail.com>
  */
-class CreateUserRequest implements \JsonSerializable
+final class SignUpRequest implements \JsonSerializable
 {
     /**
      * @var string $email

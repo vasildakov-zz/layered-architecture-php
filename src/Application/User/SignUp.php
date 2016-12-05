@@ -2,27 +2,23 @@
 namespace Application\User;
 
 use Domain\Entity\User;
-
-use Domain\ValueObject\Uuid;
+use Domain\ValueObject\Identity;
 use Domain\ValueObject\Email;
 use Domain\ValueObject\Password;
-
 use Domain\Repository\UserRepositoryInterface;
-
-use Domain\Service\IdentityGenerator;
 use Domain\Service\HashingService;
 
-use Application\User\CreateUserRequest as Request;
-use Application\User\CreateUserResponse as Response;
+use Application\User\SignUpRequest;
+use Application\User\SignUpResponse;
 
 use Psr\Log\LoggerInterface;
 
 /**
- * Use Case CreateUser
+ * Use Case SignUp
  *
  * @author Vasil Dakov <vasildakov@gmail.com>
  */
-final class CreateUser implements CreateUserInterface
+final class SignUp implements SignUpInterface
 {
     /**
      * @var \Domain\Repository\UserRepositoryInterface
@@ -39,36 +35,35 @@ final class CreateUser implements CreateUserInterface
      */
     private $logger;
 
-
     /**
      * @param UserRepositoryInterface $users
-     * @param LoggerInterface $logger
+     * @param LoggerInterface         $logger
      */
     public function __construct(
         UserRepositoryInterface $users,
-        HashingService $hasher,
         LoggerInterface $logger
     ) {
         $this->users     = $users;
-        $this->hasher    = $hasher;
         $this->logger    = $logger;
     }
 
 
     /**
-     * @param  CreateUserRequest  $request
-     * @return CreateUserResponse $response
+     * @param  SignUpRequest  $request
+     * @return SignUpResponse $response
      */
-    public function __invoke(Request $command): Response
+    public function __invoke(SignUpRequest $command): SignUpResponse
     {
         $user = new User(
-            new Uuid($command->id()),
+            Identity::generate(),
             new Email($command->email()),
-            ($this->hasher)(new Password($command->password()))
+            new Password($command->password())
         );
 
-        // $this->users->add($user);
+        $this->users->save($user);
 
-        return new Response($user);
+        $this->logger->info(sprintf("new user has been created id: %s", $user->getId()));
+
+        return new SignUpResponse($user);
     }
 }

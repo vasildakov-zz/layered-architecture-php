@@ -6,11 +6,11 @@ namespace Application\User;
 use Domain\Entity\User;
 
 /**
- * Class CreateUserResponse
+ * Class SignUpResponse
  *
  * @author Vasil Dakov <vasildakov@gmail.com>
  */
-class CreateUserResponse implements \JsonSerializable
+final class SignUpResponse implements \JsonSerializable
 {
     /**
      * @var string $user
